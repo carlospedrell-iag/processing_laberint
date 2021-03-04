@@ -1,4 +1,4 @@
-int g_size = 11;
+int g_size = 10;
 color background_color = color (80, 80, 220);
 color runner = color (255, 50, 50);
 color visited_color = color(220, 240, 240);
@@ -9,11 +9,8 @@ Cell[][] cell;
 ArrayList<Cell> done = new ArrayList<Cell>();
 ArrayList<Cell> visit = new ArrayList<Cell>();
 Cell run_cell;
-
  
 void setup() {
-  String name = "carslo";
-  randomSeed(name.hashCode());
   size(600, 600);
   frameRate(20);
   smooth(4);
@@ -90,9 +87,8 @@ class Cell {
      for(int i = 0;  i < neighbor.size(); i++){
       Cell nb = neighbor.get(i);
      if(nb.visited == false) unvisited.add(nb);
-    }       
-    
-    return unvisited.get(floor(random(0,unvisited.size())));
+    }        
+    return unvisited.get(floor(random(unvisited.size())));
   }
  
   void add_neighbor() {
