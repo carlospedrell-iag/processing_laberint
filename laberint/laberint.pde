@@ -1,4 +1,4 @@
-int g_size = 10;
+int g_size = 11;
 color background_color = color (80, 80, 220);
 color runner = color (255, 50, 50);
 color visited_color = color(220, 240, 240);
