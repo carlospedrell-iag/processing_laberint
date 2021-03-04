@@ -36,7 +36,7 @@ class Casella{
       line(posicio_x, posicio_y, posicio_x+tamany_parets, posicio_y);
     }
     if (paret_sud != 0) {
-      line(posicio_x, posicio_y+tamany_parets, posicio_x+tamany_parets, posicio_y-tamany_parets);
+      line(posicio_x, posicio_y+tamany_parets, posicio_x+tamany_parets, posicio_y+tamany_parets);
     }
     if (paret_est != 0) {
       line(posicio_x+tamany_parets, posicio_y, posicio_x+tamany_parets, posicio_y+tamany_parets);
