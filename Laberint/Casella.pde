@@ -22,10 +22,10 @@ class Casella{
   void display(){
     
     switch(estat_casella){
-      case 0: fill(255,0,0);
-      case 1: fill (255, 255, 0);
-      case 2: fill (255, 255, 255);
-      default: print("\nError en el estat de la casella");
+      case 0: fill(115,115,115);break;
+      case 1: fill (100, 160, 160);break;
+      case 2: fill (255, 255, 255);break;
+      default: print("\nError en el estat de la casella");break;
     }
     noStroke();
     square(posicio_x, posicio_y, tamany_parets);
