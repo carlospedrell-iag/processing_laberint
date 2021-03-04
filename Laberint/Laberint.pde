@@ -1,6 +1,6 @@
 Casella[][] caselles;
-int quantitat_caselles_x = 10;
-int quantitat_caselles_y = 15;
+int quantitat_caselles_x = 3;
+int quantitat_caselles_y = 5;
 
 void setup() {
   size(800, 800);
@@ -15,8 +15,8 @@ void setup() {
   print(tamany_caselles);
   
   
-  for (int i = 0; i < caselles.length; i++){
-    for (int j = 0; j < caselles[i].length; j++){
+  for (int i = 0; i < quantitat_caselles_y; i++){
+    for (int j = 0; j < quantitat_caselles_x; j++){
       //print ("\ni = " + i + "   j = " + j);
       caselles[i][j] = new Casella(tamany_caselles*i, tamany_caselles*j, tamany_caselles);
     }
