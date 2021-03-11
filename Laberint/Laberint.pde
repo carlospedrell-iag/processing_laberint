@@ -1,8 +1,15 @@
+import static javax.swing.JOptionPane.*;
 Casella[][] caselles;
 int quantitat_caselles_x = 10;
 int quantitat_caselles_y = 13;
 
 void setup() {
+  
+   String id = showInputDialog("Selecciona nombre de files:");
+   quantitat_caselles_x = parseInt(id);
+   id = showInputDialog("Selecciona nombre de columnes:");
+   quantitat_caselles_y = parseInt(id);
+   
   size(800, 800);
   caselles = new Casella[quantitat_caselles_y][quantitat_caselles_x];
   
