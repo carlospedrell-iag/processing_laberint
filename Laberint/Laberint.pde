@@ -1,6 +1,6 @@
 Casella[][] caselles;
-int quantitat_caselles_x = 3;
-int quantitat_caselles_y = 5;
+int quantitat_caselles_x = 10;
+int quantitat_caselles_y = 13;
 
 void setup() {
   size(800, 800);
@@ -21,6 +21,9 @@ void setup() {
       caselles[i][j] = new Casella(tamany_caselles*i, tamany_caselles*j, tamany_caselles);
     }
   }
+  
+  
+  this.proba_buscaCasellesPossibles();
 }
 
 
@@ -37,5 +40,68 @@ void printaCaselles(){
       //print ("\ni = " + i + "   j = " + j);
       caselles[i][j].display();
     }
+  }
+}
+
+void preparaLaberint(){
+  //Aldous-Broder algorithm
+  int[] casella_actual = new int [2];
+  Boolean no_acabat = true;
+  
+  while(no_acabat){
+    for (int i = 0; i < caselles.length && no_acabat; i++){
+      for (int j = 0; j < caselles[i].length && no_acabat; j++){
+        if (caselles[i][j].estat_casella == 0){
+          no_acabat = false;
+        }
+      }
+    }
+    avancaCasella(casella_actual);
+  }
+}
+
+void avancaCasella(int[] casella_actual){
+  
+}
+
+
+
+ArrayList<Casella> buscaCasellesPossibles(int[] casella_actual){
+  ArrayList<Casella> caselles_possibles = new ArrayList<Casella>();
+  
+  if (casella_actual[0] > 0) caselles_possibles.add(this.caselles[casella_actual[0]-1][casella_actual[1]]);
+  if (casella_actual[0] < this.caselles.length-1) caselles_possibles.add(this.caselles[casella_actual[0]+1][casella_actual[1]]);
+  if (casella_actual[1] > 0) caselles_possibles.add(this.caselles[casella_actual[0]][casella_actual[1]-1]);
+  if (casella_actual[1] < this.caselles[0].length-1) caselles_possibles.add(this.caselles[casella_actual[0]][casella_actual[1]+1]);
+  
+  return caselles_possibles;
+}
+
+
+
+ArrayList<Casella> filtraCasellesInexplorades(ArrayList<Casella> caselles_possibles){
+  ArrayList<Casella> caselles_inexplorades = new ArrayList<Casella>();
+  
+  for (int i = 0; i < caselles_possibles.size(); i++){
+    if(caselles_possibles.get(i).estat_casella == 0) caselles_inexplorades.add(caselles_possibles.get(i));
+  }
+  
+  return caselles_inexplorades;
+}
+
+
+
+
+void proba_buscaCasellesPossibles(){
+  int[] casella_actual = new int [2];
+  casella_actual[0] = 5;
+  casella_actual[1] = 5;
+  
+  ArrayList<Casella> CasellesPossibles = this.buscaCasellesPossibles(casella_actual);
+  
+  
+  caselles[casella_actual[0]][casella_actual[1]].estat_casella = 2;
+  for (int i = 0; i < CasellesPossibles.size(); i++){
+    CasellesPossibles.get(i).estat_casella = 1;
   }
 }

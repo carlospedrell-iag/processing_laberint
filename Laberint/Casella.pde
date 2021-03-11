@@ -12,6 +12,7 @@ class Casella{
   //Estat: 0 -> inexplorada,  1 -> explorada,  2 -> acabada
   int estat_casella = 0;
   
+  Casella(){}
   
   Casella(int posicio_x, int posicio_y, int tamany){
     this.posicio_x = posicio_x;
