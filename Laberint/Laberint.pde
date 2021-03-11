@@ -19,7 +19,7 @@ void setup() {
   if (tamany_caselles_y < tamany_caselles_x){
     tamany_caselles = tamany_caselles_y;
   }
-  print(tamany_caselles);
+  //print(tamany_caselles);
   
   
   for (int i = 0; i < quantitat_caselles_y; i++){
@@ -30,7 +30,7 @@ void setup() {
   }
   
   
-  this.proba_buscaCasellesPossibles();
+  //this.proba_buscaCasellesPossibles();
 }
 
 
@@ -55,6 +55,9 @@ void preparaLaberint(){
   int[] casella_actual = new int [2];
   Boolean no_acabat = true;
   
+  casella_actual[0] = 0;
+  casella_actual[1] = 0;
+  
   while(no_acabat){
     for (int i = 0; i < caselles.length && no_acabat; i++){
       for (int j = 0; j < caselles[i].length && no_acabat; j++){
@@ -63,12 +66,19 @@ void preparaLaberint(){
         }
       }
     }
-    avancaCasella(casella_actual);
+    casella_actual = avancaCasella(casella_actual);
   }
 }
 
-void avancaCasella(int[] casella_actual){
+int[] avancaCasella(int[] casella_actual){
+  ArrayList<Casella> caselles_possibles = this.buscaCasellesPossibles(casella_actual);
+  ArrayList<Casella> caselles_inexplorades = this.filtraCasellesInexplorades(caselles_possibles);
   
+  if(caselles_inexplorades.isEmpty()){
+  
+  }
+  
+  return casella_actual;
 }
 
 
