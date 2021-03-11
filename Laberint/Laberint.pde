@@ -4,13 +4,17 @@ int quantitat_caselles_x = 10;
 int quantitat_caselles_y = 13;
 
 void setup() {
-  
+    size(800, 800);
      MultiOption m = new MultiOption();
   int[] v = m.askInfo();
+  if (v == null || v[0] <= 0 || v[1] <= 0){
+    exit();
+  }else{
+  
   quantitat_caselles_x = v[0];
   quantitat_caselles_y = v[1];
    
-  size(800, 800);
+
   caselles = new Casella[quantitat_caselles_y][quantitat_caselles_x];
   
   int tamany_caselles_x = width / quantitat_caselles_x;
@@ -31,6 +35,7 @@ void setup() {
   
   
   //this.proba_buscaCasellesPossibles();
+  }
 }
 
 

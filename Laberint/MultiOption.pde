@@ -20,8 +20,12 @@ public class MultiOption {
           values[0] = parseInt(yField.getText());
          System.out.println("x value: " + xField.getText());
          System.out.println("y value: " + yField.getText());
-         
+         return values;
+
       }
-      return values;
+      else{
+        exit();
+        return null;
+      }
    }
 }
