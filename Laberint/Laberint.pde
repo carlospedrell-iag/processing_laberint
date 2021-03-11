@@ -5,10 +5,10 @@ int quantitat_caselles_y = 13;
 
 void setup() {
   
-   String id = showInputDialog("Selecciona nombre de files:");
-   quantitat_caselles_x = parseInt(id);
-   id = showInputDialog("Selecciona nombre de columnes:");
-   quantitat_caselles_y = parseInt(id);
+     MultiOption m = new MultiOption();
+  int[] v = m.askInfo();
+  quantitat_caselles_x = v[0];
+  quantitat_caselles_y = v[1];
    
   size(800, 800);
   caselles = new Casella[quantitat_caselles_y][quantitat_caselles_x];
