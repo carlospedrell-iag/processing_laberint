@@ -5,19 +5,25 @@ class Casella{
   int paret_est = -1;
   int paret_oest = -1;
   
-  int tamany_parets = 1;
+  int tamany_parets = 5;
+  int tamany_casella = 1;
   int posicio_x = 0;
   int posicio_y = 0;
+  int tamany_x;
+  int tamany_y;
   
   //Estat: 0 -> inexplorada,  1 -> explorada,  2 -> acabada
   int estat_casella = 0;
   
   Casella(){}
   
-  Casella(int posicio_x, int posicio_y, int tamany){
+  Casella(int posicio_x, int posicio_y, int tamany_casella){
     this.posicio_x = posicio_x;
     this.posicio_y = posicio_y;
-    this.tamany_parets = tamany;
+    this.tamany_casella = tamany_casella;
+    
+    this.tamany_x = posicio_x*this.tamany_casella;
+    this.tamany_y = posicio_y*this.tamany_casella;
   }
   
   void display(){
@@ -29,21 +35,21 @@ class Casella{
       default: print("\nError en el estat de la casella");break;
     }
     noStroke();
-    square(posicio_x, posicio_y, tamany_parets);
+    square(tamany_x, posicio_y*this.tamany_casella, tamany_parets);
     
     
-    stroke(10);
+    stroke(tamany_parets);
     if (paret_nort != 0) {
-      line(posicio_x, posicio_y, posicio_x+tamany_parets, posicio_y);
+      line(tamany_x, tamany_y, tamany_x+tamany_casella, tamany_y);
     }
     if (paret_sud != 0) {
-      line(posicio_x, posicio_y+tamany_parets, posicio_x+tamany_parets, posicio_y+tamany_parets);
+      line(tamany_x, tamany_y+tamany_casella, tamany_x+tamany_casella, tamany_y+tamany_casella);
     }
     if (paret_est != 0) {
-      line(posicio_x+tamany_parets, posicio_y, posicio_x+tamany_parets, posicio_y+tamany_parets);
+      line(tamany_x+tamany_casella, tamany_y, tamany_x+tamany_casella, tamany_y+tamany_casella);
     }
     if (paret_oest != 0) {
-      line(posicio_x, posicio_y, posicio_x, posicio_y+tamany_parets);
+      line(tamany_x, tamany_y, tamany_x, tamany_y+tamany_casella);
     }
   }
   
