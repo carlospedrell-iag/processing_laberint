@@ -4,10 +4,11 @@ int quantitat_caselles_x = 10;
 int quantitat_caselles_y = 13;
 
 int[] casella_actual = new int [2];
+int[] casella_anterior = new int [2];
 Boolean no_acabat = true;
 Boolean imatge_guardada = false;
 
-int delay = 100;
+int delay = 20;
 
 void setup() {
     size(800, 800);
@@ -71,7 +72,7 @@ void preparaLaberint(){
     casella_actual = avancaCasella(casella_actual); //<>//
     caselles[casella_actual[0]][casella_actual[1]].estat_casella = 3;
   }else{
-    print("Acabat");
+    //print("Acabat");
     if(!this.imatge_guardada)save("image.png");//Guardar la imatge
   }
 }
@@ -96,20 +97,16 @@ int[] avancaCasella(int[] casella_actual){
   int random_index = 0;
   
   if(caselles_inexplorades.isEmpty()){
-    random_index = (int)(random(0,caselles_possibles.size()-1));
+    random_index = (int)(random(0,caselles_possibles.size()));
     seguent_casella = caselles_possibles.get(random_index);
   }else{
-    if (caselles_possibles.size() > 1){
-      random_index = (int)(random(0,caselles_inexplorades.size()-1));
-      print("\nrandom_index=" + random_index + "  caselles_inexplorades.size()=" + caselles_inexplorades.size());
-      seguent_casella = caselles_inexplorades.get(random_index);
-    }else{
-      seguent_casella = caselles_inexplorades.get(0);
-    }
+    random_index = (int)(random(0,caselles_inexplorades.size()));
+    //print("\nrandom_index=" + random_index + "  caselles_inexplorades.size()=" + caselles_inexplorades.size());
+    seguent_casella = caselles_inexplorades.get(random_index);
   }
   
-  seguent_casella.estat_casella = 1;
   this.destrueixParet(this.caselles[casella_actual[0]][casella_actual[1]], seguent_casella);
+  seguent_casella.estat_casella = 1;
   
   casella_actual[0] = seguent_casella.posicio_x;
   casella_actual[1] = seguent_casella.posicio_y;
@@ -151,34 +148,28 @@ ArrayList<Casella> filtraCasellesInexplorades(ArrayList<Casella> caselles_possib
 
 
 void destrueixParet(Casella casella_A, Casella casella_B){
-  if(casella_A.posicio_x > casella_B.posicio_x){
-    print("\nCas 1");
-    casella_A.paret_oest = 0;
-    casella_B.paret_est = 0;
-  }
-  
-  if(casella_A.posicio_x < casella_B.posicio_x){
-    print("\nCas 2");
-    casella_A.paret_est = 0;
-    casella_B.paret_oest = 0;
-  }
-  
-  if(casella_A.posicio_y < casella_B.posicio_y){
-    print("\nCas 3");
-    casella_A.paret_sud = 0;
-    casella_B.paret_nort = 0;
-  }
-  
-  if(casella_A.posicio_y > casella_B.posicio_y){
-    print("\nCas 4");
-    casella_A.paret_nort = 0;
-    casella_B.paret_sud = 0;
+  if(casella_B.estat_casella == 0){
+    if(casella_A.posicio_x > casella_B.posicio_x){
+      casella_A.paret_oest = 0;
+      casella_B.paret_est = 0;
+    }
+    
+    if(casella_A.posicio_x < casella_B.posicio_x){
+      casella_A.paret_est = 0;
+      casella_B.paret_oest = 0;
+    }
+    
+    if(casella_A.posicio_y < casella_B.posicio_y){
+      casella_A.paret_sud = 0;
+      casella_B.paret_nort = 0;
+    }
+    
+    if(casella_A.posicio_y > casella_B.posicio_y){
+      casella_A.paret_nort = 0;
+      casella_B.paret_sud = 0;
+    }  
   }
 }
-
-
-
-
 
 
 
