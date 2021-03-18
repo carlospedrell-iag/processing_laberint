@@ -4,12 +4,12 @@ int quantitat_caselles_x = 10;
 int quantitat_caselles_y = 13;
 
 void setup() {
-    size(800, 800);
-     MultiOption m = new MultiOption();
+  size(800, 800);
+  MultiOption m = new MultiOption();
   int[] v = m.askInfo();
   if (v == null || v[0] <= 0 || v[1] <= 0){
     exit();
-  }else{
+  } else {
   
   quantitat_caselles_x = v[0];
   quantitat_caselles_y = v[1];
@@ -45,6 +45,8 @@ void draw(){
   this.printaCaselles();
   
   //this.preparaLaberint();
+  
+  this.guardaImatge();
 }
 
 
@@ -179,4 +181,8 @@ void proba_buscaCasellesPossibles(){
   for (int i = 0; i < CasellesPossibles.size(); i++){
     CasellesPossibles.get(i).estat_casella = 1;
   }
+}
+
+void guardaImatge(){
+  save("image.png");
 }
