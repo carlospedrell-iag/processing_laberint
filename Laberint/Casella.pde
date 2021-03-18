@@ -47,4 +47,23 @@ class Casella{
     }
   }
   
+  void printaCasella(){
+    print("\nparet_nort = " + paret_nort);
+    print("\nparet_sud = " + paret_sud);
+    print("\nparet_est = " + paret_est);
+    print("\nparet_oest = " + paret_oest);
+    
+    print("\ntamany_parets = " + tamany_parets);
+    print("\nposicio_x = " + posicio_x);
+    print("\nposicio_y = " + posicio_y);
+    print("\nestat_casella = " + estat_casella);
+  }
+  
+  void printaPosicioCasella(){
+    print("\n");
+    print("\nposicio_x = " + posicio_x);
+    print("\nposicio_y = " + posicio_y);
+    print("\nestat_casella = " + estat_casella);
+  }
+  
 }

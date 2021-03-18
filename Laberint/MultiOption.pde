@@ -3,8 +3,8 @@ public class MultiOption {
    public int[] askInfo() {
      int[] values = {0,0};
      
-      JTextField xField = new JTextField(5);
-      JTextField yField = new JTextField(5);
+      JTextField xField = new JTextField("5");
+      JTextField yField = new JTextField("10");
 
       JPanel myPanel = new JPanel();
       myPanel.add(new JLabel("Columnes:"));
@@ -18,8 +18,8 @@ public class MultiOption {
       if (result == JOptionPane.OK_OPTION) {
           values[1] = parseInt(xField.getText());
           values[0] = parseInt(yField.getText());
-         System.out.println("x value: " + xField.getText());
-         System.out.println("y value: " + yField.getText());
+         //System.out.println("x value: " + xField.getText());
+         //System.out.println("y value: " + yField.getText());
          return values;
 
       }
