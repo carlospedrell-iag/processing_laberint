@@ -5,6 +5,9 @@ int quantitat_caselles_y = 13;
 
 int[] casella_actual = new int [2];
 Boolean no_acabat = true;
+Boolean imatge_guardada = false;
+
+int delay = 100;
 
 void setup() {
     size(800, 800);
@@ -47,6 +50,7 @@ void draw(){
   this.printaCaselles();
   
   this.preparaLaberint();
+  delay(this.delay);
 }
 
 
@@ -63,10 +67,12 @@ void printaCaselles(){
 void preparaLaberint(){
   this.comprovaLaberintAcabat();
   if(this.no_acabat){
-    casella_actual = avancaCasella(casella_actual);
-    save("image.png");//Guardar la imatge
+    caselles[casella_actual[0]][casella_actual[1]].estat_casella = 1;
+    casella_actual = avancaCasella(casella_actual); //<>//
+    caselles[casella_actual[0]][casella_actual[1]].estat_casella = 3;
   }else{
     print("Acabat");
+    if(!this.imatge_guardada)save("image.png");//Guardar la imatge
   }
 }
 
@@ -96,12 +102,11 @@ int[] avancaCasella(int[] casella_actual){
     if (caselles_possibles.size() > 1){
       random_index = (int)(random(0,caselles_inexplorades.size()-1));
       print("\nrandom_index=" + random_index + "  caselles_inexplorades.size()=" + caselles_inexplorades.size());
-      seguent_casella = caselles_inexplorades.get(random_index); //<>//
+      seguent_casella = caselles_inexplorades.get(random_index);
     }else{
       seguent_casella = caselles_inexplorades.get(0);
     }
   }
-  
   
   seguent_casella.estat_casella = 1;
   this.destrueixParet(this.caselles[casella_actual[0]][casella_actual[1]], seguent_casella);
@@ -147,21 +152,25 @@ ArrayList<Casella> filtraCasellesInexplorades(ArrayList<Casella> caselles_possib
 
 void destrueixParet(Casella casella_A, Casella casella_B){
   if(casella_A.posicio_x > casella_B.posicio_x){
+    print("\nCas 1");
     casella_A.paret_oest = 0;
     casella_B.paret_est = 0;
   }
   
   if(casella_A.posicio_x < casella_B.posicio_x){
+    print("\nCas 2");
     casella_A.paret_est = 0;
     casella_B.paret_oest = 0;
   }
   
-  if(casella_A.posicio_y > casella_B.posicio_y){
+  if(casella_A.posicio_y < casella_B.posicio_y){
+    print("\nCas 3");
     casella_A.paret_sud = 0;
     casella_B.paret_nort = 0;
   }
   
   if(casella_A.posicio_y > casella_B.posicio_y){
+    print("\nCas 4");
     casella_A.paret_nort = 0;
     casella_B.paret_sud = 0;
   }

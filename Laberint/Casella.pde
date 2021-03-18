@@ -12,7 +12,7 @@ class Casella{
   int tamany_x;
   int tamany_y;
   
-  //Estat: 0 -> inexplorada,  1 -> explorada,  2 -> acabada
+  //Estat: 0 -> inexplorada,  1 -> explorada,  2 -> acabada, 3->en ella
   int estat_casella = 0;
   
   Casella(){}
@@ -27,15 +27,15 @@ class Casella{
   }
   
   void display(){
-    
+    noStroke();
     switch(estat_casella){
       case 0: fill(115,115,115);break;
       case 1: fill (100, 160, 160);break;
       case 2: fill (255, 255, 255);break;
+      case 3: fill (255, 0, 255);break;
       default: print("\nError en el estat de la casella");break;
     }
-    noStroke();
-    square(tamany_x, posicio_y*this.tamany_casella, tamany_parets);
+    square(posicio_x*this.tamany_casella, posicio_y*this.tamany_casella, this.tamany_casella);
     
     
     stroke(tamany_parets);
