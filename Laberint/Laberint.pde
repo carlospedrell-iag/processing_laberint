@@ -29,7 +29,7 @@ void setup() {
   for (int i = 0; i < quantitat_caselles_y; i++){
     for (int j = 0; j < quantitat_caselles_x; j++){
       //print ("\ni = " + i + "   j = " + j);
-      caselles[i][j] = new Casella(i, j, tamany_caselles);
+      caselles[i][j] = new Casella(tamany_caselles*i, tamany_caselles*j, tamany_caselles);
       //caselles[i][j].printaPosicioCasella();
     }
   }
@@ -44,7 +44,7 @@ void draw(){
   //background(0);
   this.printaCaselles();
   
-  this.preparaLaberint();
+  //this.preparaLaberint();
 }
 
 
@@ -92,7 +92,7 @@ int[] avancaCasella(int[] casella_actual){
     seguent_casella = caselles_possibles.get(random_index);
   }else{
     random_index = (int)(random(0,caselles_possibles.size()-1));
-    print(caselles_possibles.size());
+    
     seguent_casella = caselles_inexplorades.get(random_index);
   }
   
@@ -132,6 +132,7 @@ ArrayList<Casella> filtraCasellesInexplorades(ArrayList<Casella> caselles_possib
   for (int i = 0; i < caselles_possibles.size(); i++){
     if(caselles_possibles.get(i).estat_casella == 0) caselles_inexplorades.add(caselles_possibles.get(i));
   }
+  
   
   return caselles_inexplorades;
 }
