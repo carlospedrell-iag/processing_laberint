@@ -3,50 +3,50 @@ Casella[][] caselles;
 int quantitat_caselles_x = 10;
 int quantitat_caselles_y = 13;
 
+int[] casella_actual = new int [2];
+Boolean no_acabat = true;
+
 void setup() {
-  size(800, 800);
-  MultiOption m = new MultiOption();
+    size(800, 800);
+     MultiOption m = new MultiOption();
   int[] v = m.askInfo();
   if (v == null || v[0] <= 0 || v[1] <= 0){
     exit();
-  } else {
+  }else{
   
-  quantitat_caselles_x = v[0];
-  quantitat_caselles_y = v[1];
-   
-
-  caselles = new Casella[quantitat_caselles_y][quantitat_caselles_x];
+    quantitat_caselles_x = v[0];
+    quantitat_caselles_y = v[1];
+     
   
-  int tamany_caselles_x = width / quantitat_caselles_x;
-  int tamany_caselles_y = height / quantitat_caselles_y;
-  int tamany_caselles = tamany_caselles_x;
-  if (tamany_caselles_y < tamany_caselles_x){
-    tamany_caselles = tamany_caselles_y;
-  }
-  //print(tamany_caselles);
-  
-  
-  for (int i = 0; i < quantitat_caselles_y; i++){
-    for (int j = 0; j < quantitat_caselles_x; j++){
-      //print ("\ni = " + i + "   j = " + j);
-      caselles[i][j] = new Casella(tamany_caselles*i, tamany_caselles*j, tamany_caselles);
-      //caselles[i][j].printaPosicioCasella();
+    caselles = new Casella[quantitat_caselles_y][quantitat_caselles_x];
+    
+    int tamany_caselles_x = width / quantitat_caselles_x;
+    int tamany_caselles_y = height / quantitat_caselles_y;
+    int tamany_caselles = tamany_caselles_x;
+    if (tamany_caselles_y < tamany_caselles_x){
+      tamany_caselles = tamany_caselles_y;
     }
-  }
-  
-  
-  //this.proba_buscaCasellesPossibles();
+    //print(tamany_caselles);
+    
+    
+    for (int i = 0; i < quantitat_caselles_y; i++){
+      for (int j = 0; j < quantitat_caselles_x; j++){
+        //print ("\ni = " + i + "   j = " + j);
+        caselles[i][j] = new Casella(i, j, tamany_caselles);
+        //caselles[i][j].printaPosicioCasella();
+      }
+    }
+    this.casella_actual[0] = 0;
+    this.casella_actual[1] = 0;
   }
 }
 
 
 void draw(){
-  //background(0);
+  background(255);
   this.printaCaselles();
   
-  //this.preparaLaberint();
-  
-  this.guardaImatge();
+  this.preparaLaberint();
 }
 
 
@@ -61,23 +61,23 @@ void printaCaselles(){
 }
 
 void preparaLaberint(){
-  //Aldous-Broder algorithm
-  int[] casella_actual = new int [2];
-  Boolean no_acabat = true;
-  
-  casella_actual[0] = 0;
-  casella_actual[1] = 0;
-  
-  while(no_acabat){
-    no_acabat = false;
-    for (int i = 0; i < caselles.length; i++){
-      for (int j = 0; j < caselles[i].length; j++){
-        if (caselles[i][j].estat_casella == 0){
-          no_acabat = true;
-        }
+  this.comprovaLaberintAcabat();
+  if(this.no_acabat){
+    casella_actual = avancaCasella(casella_actual);
+    save("image.png");//Guardar la imatge
+  }else{
+    print("Acabat");
+  }
+}
+
+void comprovaLaberintAcabat(){
+  this.no_acabat = false;
+  for (int i = 0; i < caselles.length; i++){
+    for (int j = 0; j < caselles[i].length; j++){
+      if (caselles[i][j].estat_casella == 0){
+        no_acabat = true;
       }
     }
-    casella_actual = avancaCasella(casella_actual);
   }
 }
 
@@ -93,9 +93,13 @@ int[] avancaCasella(int[] casella_actual){
     random_index = (int)(random(0,caselles_possibles.size()-1));
     seguent_casella = caselles_possibles.get(random_index);
   }else{
-    random_index = (int)(random(0,caselles_possibles.size()-1));
-    
-    seguent_casella = caselles_inexplorades.get(random_index);
+    if (caselles_possibles.size() > 1){
+      random_index = (int)(random(0,caselles_inexplorades.size()-1));
+      print("\nrandom_index=" + random_index + "  caselles_inexplorades.size()=" + caselles_inexplorades.size());
+      seguent_casella = caselles_inexplorades.get(random_index); //<>//
+    }else{
+      seguent_casella = caselles_inexplorades.get(0);
+    }
   }
   
   
@@ -113,7 +117,7 @@ int[] avancaCasella(int[] casella_actual){
 ArrayList<Casella> buscaCasellesPossibles(int[] casella_actual){
   ArrayList<Casella> caselles_possibles = new ArrayList<Casella>();
   
-  //print("Casella actual = " + casella_actual[0] + ", " + casella_actual[1]);
+  //print("\nCasella actual = " + casella_actual[0] + ", " + casella_actual[1]);
   //this.caselles[casella_actual[0]-1][casella_actual[1]].printaCasella();
   
   if (casella_actual[0] > 0) caselles_possibles.add(this.caselles[casella_actual[0]-1][casella_actual[1]]);
@@ -181,8 +185,4 @@ void proba_buscaCasellesPossibles(){
   for (int i = 0; i < CasellesPossibles.size(); i++){
     CasellesPossibles.get(i).estat_casella = 1;
   }
-}
-
-void guardaImatge(){
-  save("image.png");
 }
